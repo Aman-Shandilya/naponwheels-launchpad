@@ -60,7 +60,7 @@ const ForOwners = () => {
           >
             <div className="glass-card-strong p-8 space-y-6">
               <div className="text-center">
-                <p className="text-5xl font-heading font-extrabold text-accent mb-2">₹15,000+</p>
+                <p className="text-5xl font-heading font-extrabold text-accent mb-2">₹200,000+</p>
                 <p className="text-muted-foreground">Average monthly earning per bus</p>
               </div>
               <div className="h-px bg-border" />

@@ -6,7 +6,7 @@ const buses = [
   {
     name: 'Volvo Sleeper Deluxe',
     location: 'Bangalore Majestic Bus Stand',
-    priceHour: '₹149/hr',
+    priceHour: '₹55/hr',
     priceNight: '₹599/night',
     rating: 4.8,
     amenities: ['AC', 'Charging', 'Blanket', 'Security'],
@@ -17,7 +17,7 @@ const buses = [
   {
     name: 'Scania Premium Pod',
     location: 'Delhi ISBT Kashmere Gate',
-    priceHour: '₹199/hr',
+    priceHour: '₹59/hr',
     priceNight: '₹799/night',
     rating: 4.9,
     amenities: ['AC', 'Charging', 'Blanket', 'Security'],
@@ -28,7 +28,7 @@ const buses = [
   {
     name: 'Comfort Plus Sleeper',
     location: 'Mumbai Dadar Station',
-    priceHour: '₹129/hr',
+    priceHour: '₹50/hr',
     priceNight: '₹499/night',
     rating: 4.7,
     amenities: ['AC', 'Charging', 'Security'],
