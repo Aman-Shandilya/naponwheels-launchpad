@@ -33,13 +33,32 @@ const LeadFormModal = () => {
     return Object.keys(e).length === 0;
   };
 
+  const WEBHOOK_URL = 'https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjcwNTZmMDYzNjA0Mzc1MjZkNTUzMzUxMzMi_pc';
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1500));
-    setLoading(false);
-    setSuccess(true);
+
+    try {
+      // send data to webhook
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name, phone: form.phone, email: form.email, why: form.why }),
+      });
+
+      // simulate processing delay for UX
+      await new Promise(r => setTimeout(r, 800));
+
+      setSuccess(true);
+    } catch (err) {
+      console.error('Failed to submit lead:', err);
+      // keep user informed; optionally show an error toast (not implemented)
+      setErrors(prev => ({ ...prev, submit: 'Submission failed. Please try again.' }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
