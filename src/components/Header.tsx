@@ -58,6 +58,16 @@ const Header = () => {
             {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
           <button
+            className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground border border-border rounded-xl hover:bg-muted transition-all"
+          >
+            Sign In
+          </button>
+          <button
+            className="px-4 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
+          >
+            Sign Up
+          </button>
+          <button
             onClick={() => openModal()}
             className="px-5 py-2.5 bg-accent text-accent-foreground text-sm font-bold rounded-xl hover:bg-accent/90 transition-all shadow-accent-glow"
           >
@@ -99,6 +109,18 @@ const Header = () => {
                 {l.label}
               </a>
             ))}
+            <div className="flex gap-2 mt-2">
+              <button
+                className="flex-1 py-3 text-sm font-semibold text-muted-foreground border border-border rounded-xl hover:bg-muted transition-all"
+              >
+                Sign In
+              </button>
+              <button
+                className="flex-1 py-3 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
+              >
+                Sign Up
+              </button>
+            </div>
             <button
               onClick={() => { openModal(); setMobileOpen(false); }}
               className="w-full py-3 bg-accent text-accent-foreground font-bold rounded-xl hover:bg-accent/90 transition-all shadow-accent-glow mt-2"
