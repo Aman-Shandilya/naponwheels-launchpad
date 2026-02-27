@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, User, LogOut } from 'lucide-react';
 import { useLeadModal } from '@/contexts/LeadModalContext';
+import { useAuth } from '@/hooks/useAuth';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -16,7 +17,9 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dark, setDark] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const { openModal } = useLeadModal();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -27,6 +30,8 @@ const Header = () => {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
   }, [dark]);
+
+  const userInitial = user?.email?.charAt(0).toUpperCase() || 'U';
 
   return (
     <header
@@ -57,18 +62,52 @@ const Header = () => {
           >
             {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
-          <button
-            onClick={() => openModal('I want to sign in to my NapOnWheels account.')}
-            className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground border border-border rounded-xl hover:bg-muted transition-all"
-          >
-            Sign In
-          </button>
-          <button
-            onClick={() => openModal('I want to create a new NapOnWheels account.')}
-            className="px-4 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
-          >
-            Sign Up
-          </button>
+
+          {user ? (
+            <div className="relative">
+              <button
+                onClick={() => setProfileOpen(p => !p)}
+                className="w-9 h-9 rounded-full bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center hover:bg-primary/90 transition-colors"
+              >
+                {userInitial}
+              </button>
+              {profileOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="absolute right-0 mt-2 w-56 bg-card border border-border rounded-xl shadow-elevated p-3 z-50"
+                >
+                  <div className="px-2 py-2 border-b border-border mb-2">
+                    <p className="text-sm font-semibold text-foreground truncate">{user.email}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Signed in</p>
+                  </div>
+                  <button
+                    onClick={() => { signOut(); setProfileOpen(false); }}
+                    className="w-full flex items-center gap-2 px-2 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </button>
+                </motion.div>
+              )}
+            </div>
+          ) : (
+            <>
+              <a
+                href="/auth"
+                className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground border border-border rounded-xl hover:bg-muted transition-all"
+              >
+                Sign In
+              </a>
+              <a
+                href="/auth"
+                className="px-4 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
+              >
+                Sign Up
+              </a>
+            </>
+          )}
+
           <button
             onClick={() => openModal()}
             className="px-5 py-2.5 bg-accent text-accent-foreground text-sm font-bold rounded-xl hover:bg-accent/90 transition-all shadow-accent-glow"
@@ -111,20 +150,42 @@ const Header = () => {
                 {l.label}
               </a>
             ))}
-            <div className="flex gap-2 mt-2">
-              <button
-                onClick={() => { openModal('I want to sign in to my NapOnWheels account.'); setMobileOpen(false); }}
-                className="flex-1 py-3 text-sm font-semibold text-muted-foreground border border-border rounded-xl hover:bg-muted transition-all"
-              >
-                Sign In
-              </button>
-              <button
-                onClick={() => { openModal('I want to create a new NapOnWheels account.'); setMobileOpen(false); }}
-                className="flex-1 py-3 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
-              >
-                Sign Up
-              </button>
-            </div>
+
+            {user ? (
+              <div className="border-t border-border pt-3 mt-2">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-9 h-9 rounded-full bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center">
+                    {userInitial}
+                  </div>
+                  <p className="text-sm font-medium text-foreground truncate">{user.email}</p>
+                </div>
+                <button
+                  onClick={() => { signOut(); setMobileOpen(false); }}
+                  className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold text-muted-foreground border border-border rounded-xl hover:bg-muted transition-all"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <div className="flex gap-2 mt-2">
+                <a
+                  href="/auth"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex-1 py-3 text-sm font-semibold text-muted-foreground border border-border rounded-xl hover:bg-muted transition-all text-center"
+                >
+                  Sign In
+                </a>
+                <a
+                  href="/auth"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex-1 py-3 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all text-center"
+                >
+                  Sign Up
+                </a>
+              </div>
+            )}
+
             <button
               onClick={() => { openModal(); setMobileOpen(false); }}
               className="w-full py-3 bg-accent text-accent-foreground font-bold rounded-xl hover:bg-accent/90 transition-all shadow-accent-glow mt-2"
