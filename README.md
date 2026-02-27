@@ -64,6 +64,28 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
+### Supabase configuration (required for auth)
+
+This application uses Supabase for authentication. Before you deploy you
+must provide the following environment variables to your hosting platform
+(Vercel, Netlify, etc):
+
+```text
+VITE_SUPABASE_URL=https://<your-project>.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=<anon/public-key>
+```
+
+Also make sure to add your production URL to the
+**Redirect URLs** section in the Supabase dashboard under
+`Authentication → Settings`. For example:
+
+```
+https://naponwheels.example.com
+```
+
+Without these settings the sign‑in button will fail with a `404 NOT_FOUND`
+error after deployment.
+
 ## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!

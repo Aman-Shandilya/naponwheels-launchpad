@@ -2,8 +2,24 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
+// During build the VITE_ variables are statically replaced. To avoid confusing
+// 404 errors on the deployed site we check at runtime and throw if they are
+// missing or look clearly wrong.
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+if (!SUPABASE_URL || SUPABASE_URL.includes('undefined')) {
+  console.error(
+    'Missing or invalid VITE_SUPABASE_URL. Make sure the variable is set in '
+    + 'your deployment service and that it points to your Supabase project.'
+  );
+}
+if (!SUPABASE_PUBLISHABLE_KEY) {
+  console.error(
+    'Missing VITE_SUPABASE_PUBLISHABLE_KEY. This should be the anon/public '
+    + 'key from your Supabase dashboard.'
+  );
+}
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
