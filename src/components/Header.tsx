@@ -58,11 +58,13 @@ const Header = () => {
             {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
           <button
+            onClick={() => openModal('I want to sign in to my NapOnWheels account.')}
             className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground border border-border rounded-xl hover:bg-muted transition-all"
           >
             Sign In
           </button>
           <button
+            onClick={() => openModal('I want to create a new NapOnWheels account.')}
             className="px-4 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
           >
             Sign Up
@@ -111,11 +113,13 @@ const Header = () => {
             ))}
             <div className="flex gap-2 mt-2">
               <button
+                onClick={() => { openModal('I want to sign in to my NapOnWheels account.'); setMobileOpen(false); }}
                 className="flex-1 py-3 text-sm font-semibold text-muted-foreground border border-border rounded-xl hover:bg-muted transition-all"
               >
                 Sign In
               </button>
               <button
+                onClick={() => { openModal('I want to create a new NapOnWheels account.'); setMobileOpen(false); }}
                 className="flex-1 py-3 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
               >
                 Sign Up
