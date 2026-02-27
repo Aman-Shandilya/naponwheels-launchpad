@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Bed, Smartphone, Coffee } from 'lucide-react';
 
 const steps = [
-  { icon: MapPin, title: 'Find a Nearby Sleep Bus', desc: 'Browse available sleeper buses parked near you or your destination.' },
+  { icon: MapPin, title: 'Find a Nearby Sleeper Bus', desc: 'Browse available sleeper buses parked near you or your destination.' },
   { icon: Bed, title: 'Choose Berth & Time', desc: 'Select your preferred berth type and booking duration — hourly or overnight.' },
   { icon: Smartphone, title: 'Check In Digitally', desc: 'Get instant access via your phone. No paperwork, no queues.' },
   { icon: Coffee, title: 'Rest & Leave Refreshed', desc: 'Enjoy a comfortable nap and check out whenever you\'re ready.' },
