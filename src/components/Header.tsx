@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, Moon, Sun, User, LogOut } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLeadModal } from '@/contexts/LeadModalContext';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -93,18 +94,18 @@ const Header = () => {
             </div>
           ) : (
             <>
-              <a
-                href="/auth"
+              <Link
+                to="/auth"
                 className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground border border-border rounded-xl hover:bg-muted transition-all"
               >
                 Sign In
-              </a>
-              <a
-                href="/auth"
+              </Link>
+              <Link
+                to="/auth"
                 className="px-4 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
               >
                 Sign Up
-              </a>
+              </Link>
             </>
           )}
 
@@ -169,20 +170,20 @@ const Header = () => {
               </div>
             ) : (
               <div className="flex gap-2 mt-2">
-                <a
-                  href="/auth"
+                <Link
+                  to="/auth"
                   onClick={() => setMobileOpen(false)}
                   className="flex-1 py-3 text-sm font-semibold text-muted-foreground border border-border rounded-xl hover:bg-muted transition-all text-center"
                 >
                   Sign In
-                </a>
-                <a
-                  href="/auth"
+                </Link>
+                <Link
+                  to="/auth"
                   onClick={() => setMobileOpen(false)}
                   className="flex-1 py-3 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all text-center"
                 >
                   Sign Up
-                </a>
+                </Link>
               </div>
             )}
 
