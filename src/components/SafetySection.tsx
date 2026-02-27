@@ -6,7 +6,7 @@ const features = [
   { icon: Sparkles, title: 'Cleanliness Standards', desc: 'Hospital-grade sanitization between every guest check-out.' },
   { icon: Cctv, title: 'CCTV Availability', desc: 'Round-the-clock surveillance in parking zones.' },
   { icon: Phone, title: 'Emergency Support', desc: '24/7 emergency helpline for all guests.' },
-  { icon: Heart, title: 'Female-Friendly Options', desc: 'Dedicated sections with extra safety measures for women.' },
+  { icon: ShieldCheck, title: 'Female-Friendly Options', desc: 'Dedicated sections with extra safety measures for women.' },
   { icon: MapPinCheck, title: 'Secure Locations', desc: 'Buses parked only in well-lit, monitored areas.' },
 ];
 

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Star, Snowflake, BatteryCharging, Shield, Sparkles } from 'lucide-react';
 import { useLeadModal } from '@/contexts/LeadModalContext';
+import heroBus from '@/assets/hero-bus.jpg';
 
 const buses = [
   {
@@ -10,7 +11,7 @@ const buses = [
     priceNight: '₹599/night',
     rating: 4.8,
     amenities: ['AC', 'Charging', 'Blanket', 'Security'],
-    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=250&fit=crop',
+    image: '/volvo-bus.jpg',
     clean: true,
     verified: true,
   },
@@ -81,6 +82,9 @@ const FeaturedBuses = () => {
                   alt={`${bus.name} sleeper bus`}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = heroBus;
+                  }}
                 />
                 <div className="absolute top-3 left-3 flex gap-2">
                   {bus.verified && (

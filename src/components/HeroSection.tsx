@@ -57,7 +57,7 @@ const HeroSection = () => {
               onClick={() => openModal()}
               className="px-8 py-4 bg-accent text-accent-foreground font-heading font-bold text-lg rounded-2xl hover:bg-accent/90 transition-all shadow-accent-glow flex items-center justify-center gap-2"
             >
-              Find a Sleep Bus
+              Discover Sleeper Buses
               <ArrowRight className="w-5 h-5" />
             </button>
             <a
