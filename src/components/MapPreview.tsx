@@ -35,10 +35,13 @@ const MapPreview = () => (
       >
         {/* Stylized map background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-glow/5 to-accent/5">
-          <div className="absolute inset-0 opacity-10" style={{
-            backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)',
-            backgroundSize: '30px 30px',
-          }} />
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)',
+              backgroundSize: '30px 30px',
+            }}
+          />
         </div>
 
         {/* Location pins */}
@@ -54,7 +57,10 @@ const MapPreview = () => (
           >
             <div className="relative">
               <div className="absolute -inset-3 bg-accent/20 rounded-full animate-pulse-soft" />
-              <MapPin className="w-8 h-8 text-accent drop-shadow-lg relative z-10" fill="hsl(var(--accent))" />
+              <MapPin
+                className="w-8 h-8 text-accent drop-shadow-lg relative z-10"
+                fill="hsl(var(--accent))"
+              />
             </div>
             <div className="absolute left-1/2 -translate-x-1/2 -top-14 bg-card shadow-elevated px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">
               <p className="text-sm font-heading font-bold text-foreground">{loc.name}</p>
