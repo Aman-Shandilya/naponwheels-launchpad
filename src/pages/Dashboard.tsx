@@ -29,16 +29,39 @@ const Dashboard = () => {
     if (!user) return;
     const fetchProfile = async () => {
       try {
-        const { data, error } = await supabase
+        let { data, error } = await supabase
           .from('profiles')
           .select('full_name, phone, role')
           .eq('user_id', user.id)
           .single();
-        if (error) {
+
+        // If no profile exists, create one for this user
+        if (error && error.code === 'PGRST116') {
+          const meta = user.user_metadata || {};
+          const { data: newProfile, error: insertError } = await supabase
+            .from('profiles')
+            .insert({
+              user_id: user.id,
+              full_name: meta.full_name || user.email?.split('@')[0] || '',
+              phone: meta.phone || '',
+              role: (meta.role as 'customer' | 'bus_owner') || 'customer',
+            })
+            .select('full_name, phone, role')
+            .single();
+
+          if (insertError) {
+            console.error('Profile create error:', insertError);
+            setError('Could not create profile');
+          } else {
+            data = newProfile;
+          }
+        } else if (error) {
           console.error('Profile fetch error:', error);
           setError('Could not load profile');
-        } else {
-          setProfile(data as Profile | null);
+        }
+
+        if (data) {
+          setProfile(data as Profile);
         }
       } catch (err) {
         console.error('Unexpected error:', err);
