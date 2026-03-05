@@ -52,8 +52,18 @@ const Dashboard = () => {
   const isOwner = profile.role === 'bus_owner';
 
   return (
-    <div className="min-h-screen bg-background pt-20 pb-12 px-4">
+    <div className="min-h-screen bg-background">
+      <Header />
+      <div className="pt-20 pb-12 px-4">
       <div className="max-w-5xl mx-auto">
+        {/* Back to home */}
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to home
+        </Link>
         {/* Welcome */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
