@@ -82,6 +82,14 @@ const Header = () => {
                     <p className="text-sm font-semibold text-foreground truncate">{user.email}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">Signed in</p>
                   </div>
+                  <Link
+                    to="/dashboard"
+                    onClick={() => setProfileOpen(false)}
+                    className="w-full flex items-center gap-2 px-2 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                  >
+                    <User className="w-4 h-4" />
+                    Dashboard
+                  </Link>
                   <button
                     onClick={() => { signOut(); setProfileOpen(false); }}
                     className="w-full flex items-center gap-2 px-2 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
