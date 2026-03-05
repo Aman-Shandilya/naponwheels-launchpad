@@ -17,6 +17,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -27,13 +28,24 @@ const Dashboard = () => {
   useEffect(() => {
     if (!user) return;
     const fetchProfile = async () => {
-      const { data } = await supabase
-        .from('profiles')
-        .select('full_name, phone, role')
-        .eq('user_id', user.id)
-        .single();
-      setProfile(data as Profile | null);
-      setLoadingProfile(false);
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('full_name, phone, role')
+          .eq('user_id', user.id)
+          .single();
+        if (error) {
+          console.error('Profile fetch error:', error);
+          setError('Could not load profile');
+        } else {
+          setProfile(data as Profile | null);
+        }
+      } catch (err) {
+        console.error('Unexpected error:', err);
+        setError('Something went wrong');
+      } finally {
+        setLoadingProfile(false);
+      }
     };
     fetchProfile();
   }, [user]);
@@ -46,7 +58,20 @@ const Dashboard = () => {
     );
   }
 
-  if (!user || !profile) return null;
+  if (!user) return null;
+
+  if (error || !profile) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="pt-20 pb-12 px-4 flex flex-col items-center justify-center min-h-[60vh]">
+          <p className="text-destructive text-lg font-semibold mb-2">{error || 'Profile not found'}</p>
+          <p className="text-muted-foreground text-sm mb-4">Please try signing out and back in.</p>
+          <Link to="/" className="text-sm text-accent hover:underline">← Back to home</Link>
+        </div>
+      </div>
+    );
+  }
 
   const displayName = profile.full_name || user.email?.split('@')[0] || 'User';
   const isOwner = profile.role === 'bus_owner';
