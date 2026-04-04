@@ -31,13 +31,13 @@ const BenefitsSection = () => (
         {benefits.map((b, i) => (
           <motion.div
             key={b.title}
-            className="glass-card p-6 group hover:shadow-glow transition-shadow duration-300"
+            className="glass-card p-6 group hover:shadow-glow transition-all duration-300 dark:bg-surface-elevated/40"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
           >
-            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+            <div className="w-12 h-12 rounded-xl bg-accent/10 dark:bg-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/20 dark:group-hover:bg-accent/30 transition-colors">
               <b.icon className="w-6 h-6 text-accent" />
             </div>
             <h3 className="font-heading font-bold text-foreground mb-2">{b.title}</h3>

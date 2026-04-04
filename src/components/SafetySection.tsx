@@ -39,42 +39,42 @@ const SafetySection = () => (
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="space-y-4"
+          className="space-y-4 bg-white/50 dark:bg-white/5 p-6 rounded-3xl backdrop-blur-sm"
         >
           <h3 className="text-xl font-heading font-semibold text-foreground mb-4">
             Women Safety
           </h3>
           <ul className="space-y-3">
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <UserCheck className="w-5 h-5 text-primary shrink-0" />
               <span>Verified drivers and staff</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <Users className="w-5 h-5 text-primary shrink-0" />
               <span>Women-friendly zones and optional women-only buses (coming soon)</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <Sun className="w-5 h-5 text-primary shrink-0" />
               <span>Well-lit, secure parking locations</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <Cctv className="w-5 h-5 text-primary shrink-0" />
               <span>CCTV surveillance inside and outside the bus</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <Phone className="w-5 h-5 text-primary shrink-0" />
               <span>Emergency contact support</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <Lock className="w-5 h-5 text-primary shrink-0" />
               <span>Controlled entry — only verified passengers allowed</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <AlertCircle className="w-5 h-5 text-primary shrink-0" />
               <span>Panic alert feature (future app feature)</span>
             </li>
           </ul>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground italic">
             Designed so women can travel and rest with confidence.
           </p>
         </motion.div>
@@ -84,43 +84,43 @@ const SafetySection = () => (
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="space-y-4"
+          className="space-y-4 bg-white/50 dark:bg-white/5 p-6 rounded-3xl backdrop-blur-sm"
         >
           <h3 className="text-xl font-heading font-semibold text-foreground mb-4">
             Passenger Safety
           </h3>
           <ul className="space-y-3">
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <MapPin className="w-5 h-5 text-primary shrink-0" />
               <span>Buses remain stationary at approved secure locations</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <Navigation className="w-5 h-5 text-primary shrink-0" />
               <span>GPS-tracked parking areas</span>
             </li>
-            <li className="flex items-start gap-3">
-              <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
-              <span>Security personnel or monitored parking</span>
-            </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <Sparkles className="w-5 h-5 text-primary shrink-0" />
-              <span>Clean and sanitized sleeping berths</span>
+              <span>Sanitized and clean berths for every passenger</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <CreditCard className="w-5 h-5 text-primary shrink-0" />
-              <span>Digital check-in and identity verification</span>
+              <span>Cashless, secure digital payments</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <Flame className="w-5 h-5 text-primary shrink-0" />
-              <span>Fire safety equipment onboard</span>
+              <span>Fire safety equipment on every bus</span>
             </li>
-            <li className="flex items-start gap-3">
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
               <LifeBuoy className="w-5 h-5 text-primary shrink-0" />
-              <span>24/7 emergency assistance availability</span>
+              <span>24/7 passenger assistance</span>
+            </li>
+            <li className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
+              <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
+              <span>Insurance coverage for every stay (coming soon)</span>
             </li>
           </ul>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Safer than waiting at stations. More comfortable than public spaces.
+          <p className="mt-3 text-sm text-muted-foreground italic">
+            Committed to making your rest journey worry-free.
           </p>
         </motion.div>
       </div>

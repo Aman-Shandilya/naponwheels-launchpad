@@ -36,10 +36,10 @@ const HowItWorks = () => (
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
           >
-            <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-4">
               <step.icon className="w-7 h-7 text-primary" />
             </div>
-            <span className="absolute top-4 right-4 text-4xl font-heading font-extrabold text-muted/60">
+            <span className="absolute top-4 right-4 text-4xl font-heading font-extrabold text-muted/60 dark:text-muted/20 transition-colors">
               {i + 1}
             </span>
             <h3 className="font-heading font-bold text-foreground mb-2">{step.title}</h3>

@@ -31,11 +31,11 @@ const FAQSection = () => {
           </p>
         </motion.div>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {faqs.map((faq, i) => (
             <motion.div
               key={i}
-              className="glass-card overflow-hidden"
+              className="glass-card overflow-hidden dark:bg-slate-900/40 border-slate-100 dark:border-slate-800 transition-colors"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -43,19 +43,24 @@ const FAQSection = () => {
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full px-6 py-4 flex items-center justify-between text-left"
+                className="w-full px-7 py-5 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                 aria-expanded={open === i}
               >
-                <span className="font-heading font-semibold text-foreground pr-4">{faq.q}</span>
-                <ChevronDown className={`w-5 h-5 text-muted-foreground shrink-0 transition-transform duration-200 ${open === i ? 'rotate-180' : ''}`} />
+                <span className="font-heading font-bold text-foreground pr-4">{faq.q}</span>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${open === i ? 'bg-orange-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}>
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${open === i ? 'rotate-180' : ''}`} />
+                </div>
               </button>
               <motion.div
                 initial={false}
                 animate={{ height: open === i ? 'auto' : 0, opacity: open === i ? 1 : 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <p className="px-6 pb-4 text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+                <div className="px-7 pb-6">
+                  <div className="h-px bg-slate-100 dark:bg-slate-800 mb-5" />
+                  <p className="text-sm font-medium text-muted-foreground leading-relaxed">{faq.a}</p>
+                </div>
               </motion.div>
             </motion.div>
           ))}

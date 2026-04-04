@@ -1,38 +1,49 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, Moon, Sun, User, LogOut } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useLeadModal } from '@/contexts/LeadModalContext';
 import { useAuth } from '@/hooks/useAuth';
+import { useTheme } from 'next-themes';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'For Owners', href: '#for-owners' },
-  { label: 'Safety', href: '#safety' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: 'home' },
+  { label: 'How It Works', href: 'how-it-works' },
+  { label: 'For Owners', href: 'for-owners' },
+  { label: 'Safety', href: 'safety' },
+  { label: 'FAQ', href: 'faq' },
+  { label: 'Contact', href: 'contact' },
 ];
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [dark, setDark] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const { openModal } = useLeadModal();
   const { user, signOut } = useAuth();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
+    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark);
-  }, [dark]);
-
   const userInitial = user?.email?.charAt(0).toUpperCase() || 'U';
+
+  const handleNavClick = (href: string) => {
+    setMobileOpen(false);
+    if (isHomePage) {
+      const element = document.getElementById(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <header
@@ -41,27 +52,42 @@ const Header = () => {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-18">
-        <a href="#home" className="font-heading font-extrabold text-xl tracking-tight text-foreground">
+        <Link to="/" className="font-heading font-extrabold text-xl tracking-tight text-foreground">
           Nap<span className="text-accent">On</span>Wheels
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-6">
           {navLinks.map(l => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {l.label}
-            </a>
+            isHomePage ? (
+              <a
+                key={l.href}
+                href={`#${l.href}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(l.href);
+                }}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link
+                key={l.href}
+                to={`/#${l.href}`}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {l.label}
+              </Link>
+            )
           ))}
           <button
-            onClick={() => setDark(d => !d)}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 rounded-lg hover:bg-muted transition-colors"
             aria-label="Toggle dark mode"
           >
-            {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {mounted && (theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />)}
+            {!mounted && <div className="w-4 h-4" />}
           </button>
 
           {user ? (
@@ -128,11 +154,12 @@ const Header = () => {
         {/* Mobile menu toggle */}
         <div className="md:hidden flex items-center gap-2">
           <button
-            onClick={() => setDark(d => !d)}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 rounded-lg hover:bg-muted transition-colors"
             aria-label="Toggle dark mode"
           >
-            {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {mounted && (theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />)}
+            {!mounted && <div className="w-4 h-4" />}
           </button>
           <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2" aria-label="Toggle menu">
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -150,14 +177,28 @@ const Header = () => {
         >
           <div className="px-4 py-4 space-y-3">
             {navLinks.map(l => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setMobileOpen(false)}
-                className="block text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
-              >
-                {l.label}
-              </a>
+              isHomePage ? (
+                <a
+                  key={l.href}
+                  href={`#${l.href}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(l.href);
+                  }}
+                  className="block text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                >
+                  {l.label}
+                </a>
+              ) : (
+                <Link
+                  key={l.href}
+                  to={`/#${l.href}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="block text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                >
+                  {l.label}
+                </Link>
+              )
             ))}
 
             {user ? (

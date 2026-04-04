@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/integrations/supabase/client';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Loader2, ArrowLeft, Eye, EyeOff, Check, X, ChevronDown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -42,12 +42,16 @@ const Auth = () => {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const { toast } = useToast();
 
   useEffect(() => {
-    if (user) navigate('/dashboard');
-  }, [user, navigate]);
+    if (user) {
+      const returnTo = (location.state as { returnTo?: string })?.returnTo || '/dashboard';
+      navigate(returnTo);
+    }
+  }, [user, navigate, location.state]);
 
   const validateSignup = (): string | null => {
     if (!fullName.trim()) return 'Full name is required';

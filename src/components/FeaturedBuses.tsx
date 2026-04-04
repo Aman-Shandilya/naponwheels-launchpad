@@ -100,7 +100,7 @@ const FeaturedBuses = () => {
                 </div>
               </div>
 
-              <div className="p-5">
+              <div className="p-5 bg-white dark:bg-slate-900 transition-colors duration-300">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-heading font-bold text-foreground">{bus.name}</h3>
                   <div className="flex items-center gap-1 text-accent">
@@ -110,26 +110,26 @@ const FeaturedBuses = () => {
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">{bus.location}</p>
 
-                <div className="flex gap-3 mb-4">
+                <div className="flex gap-3 mb-6 flex-wrap">
                   {bus.amenities.map(a => {
                     const Icon = amenityIcons[a];
                     return (
-                      <div key={a} className="flex items-center gap-1 text-xs text-muted-foreground">
-                        {Icon && <Icon className="w-3.5 h-3.5" />}
+                      <div key={a} className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wider bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded-md border border-slate-100 dark:border-slate-700">
+                        {Icon && <Icon className="w-3 h-3" />}
                         {a}
                       </div>
                     );
                   })}
                 </div>
 
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center pt-4 border-t border-slate-50 dark:border-slate-800">
                   <div>
-                    <span className="text-lg font-heading font-bold text-foreground">{bus.priceHour}</span>
-                    <span className="text-xs text-muted-foreground ml-2">{bus.priceNight}</span>
+                    <span className="text-xl font-heading font-black text-foreground">{bus.priceHour}</span>
+                    <span className="text-xs font-bold text-muted-foreground ml-2">{bus.priceNight}</span>
                   </div>
                   <button
                     onClick={() => openModal(`I'm interested in booking the ${bus.name} at ${bus.location}.`)}
-                    className="px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold rounded-xl hover:bg-primary/90 transition"
+                    className="px-5 py-2.5 bg-primary text-primary-foreground text-sm font-bold rounded-xl hover:bg-primary/90 transition shadow-sm hover:shadow-md"
                   >
                     Book Now
                   </button>
