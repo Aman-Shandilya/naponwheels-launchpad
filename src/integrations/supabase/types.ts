@@ -14,6 +14,187 @@ export type Database = {
   }
   public: {
     Tables: {
+      bookings: {
+        Row: {
+          berth_type: string | null
+          booking_date: string
+          bus_id: string
+          check_in: string
+          check_out: string
+          created_at: string
+          customer_id: string
+          customer_name: string | null
+          customer_phone: string | null
+          id: string
+          notes: string | null
+          status: string
+          total_price: number
+          updated_at: string
+        }
+        Insert: {
+          berth_type?: string | null
+          booking_date: string
+          bus_id: string
+          check_in?: string
+          check_out?: string
+          created_at?: string
+          customer_id: string
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: string
+          notes?: string | null
+          status?: string
+          total_price?: number
+          updated_at?: string
+        }
+        Update: {
+          berth_type?: string | null
+          booking_date?: string
+          bus_id?: string
+          check_in?: string
+          check_out?: string
+          created_at?: string
+          customer_id?: string
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: string
+          notes?: string | null
+          status?: string
+          total_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_bus_id_fkey"
+            columns: ["bus_id"]
+            isOneToOne: false
+            referencedRelation: "buses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bus_documents: {
+        Row: {
+          bus_id: string
+          created_at: string
+          document_type: string
+          file_name: string | null
+          file_path: string
+          id: string
+        }
+        Insert: {
+          bus_id: string
+          created_at?: string
+          document_type: string
+          file_name?: string | null
+          file_path: string
+          id?: string
+        }
+        Update: {
+          bus_id?: string
+          created_at?: string
+          document_type?: string
+          file_name?: string | null
+          file_path?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bus_documents_bus_id_fkey"
+            columns: ["bus_id"]
+            isOneToOne: false
+            referencedRelation: "buses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      buses: {
+        Row: {
+          address: string
+          amenities: Json | null
+          available_days: Json | null
+          bus_name: string
+          bus_type: string
+          business_type: string
+          city: string
+          created_at: string
+          discount_enabled: boolean | null
+          id: string
+          is_active: boolean | null
+          landmark: string | null
+          night_package_price: number | null
+          operator_name: string | null
+          owner_id: string
+          parking_location: string | null
+          price_per_hour: number
+          recurring_availability: boolean | null
+          registration_number: string
+          secure_parking: boolean | null
+          status: string
+          time_slot_end: string | null
+          time_slot_start: string | null
+          total_berths: number
+          updated_at: string
+          weekend_price: number | null
+        }
+        Insert: {
+          address?: string
+          amenities?: Json | null
+          available_days?: Json | null
+          bus_name: string
+          bus_type?: string
+          business_type?: string
+          city?: string
+          created_at?: string
+          discount_enabled?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          landmark?: string | null
+          night_package_price?: number | null
+          operator_name?: string | null
+          owner_id: string
+          parking_location?: string | null
+          price_per_hour?: number
+          recurring_availability?: boolean | null
+          registration_number: string
+          secure_parking?: boolean | null
+          status?: string
+          time_slot_end?: string | null
+          time_slot_start?: string | null
+          total_berths?: number
+          updated_at?: string
+          weekend_price?: number | null
+        }
+        Update: {
+          address?: string
+          amenities?: Json | null
+          available_days?: Json | null
+          bus_name?: string
+          bus_type?: string
+          business_type?: string
+          city?: string
+          created_at?: string
+          discount_enabled?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          landmark?: string | null
+          night_package_price?: number | null
+          operator_name?: string | null
+          owner_id?: string
+          parking_location?: string | null
+          price_per_hour?: number
+          recurring_availability?: boolean | null
+          registration_number?: string
+          secure_parking?: boolean | null
+          status?: string
+          time_slot_end?: string | null
+          time_slot_start?: string | null
+          total_berths?: number
+          updated_at?: string
+          weekend_price?: number | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
