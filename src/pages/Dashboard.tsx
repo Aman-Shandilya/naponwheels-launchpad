@@ -25,6 +25,13 @@ const Dashboard = () => {
     }
   }, [user, authLoading, navigate]);
 
+  // Redirect bus owners to owner dashboard
+  useEffect(() => {
+    if (profile?.role === 'bus_owner') {
+      navigate('/owner');
+    }
+  }, [profile, navigate]);
+
   useEffect(() => {
     if (!user) return;
     const fetchProfile = async () => {
