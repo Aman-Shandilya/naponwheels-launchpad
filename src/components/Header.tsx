@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Moon, Sun, User, LogOut } from 'lucide-react';
+import { Menu, X, Moon, Sun, User, LogOut, Bus } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLeadModal } from '@/contexts/LeadModalContext';
 import { useAuth } from '@/hooks/useAuth';

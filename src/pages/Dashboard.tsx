@@ -182,13 +182,15 @@ const Dashboard = () => {
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <DashCard
-              icon={<MapPin className="w-6 h-6" />}
-              title="Find Buses"
-              desc="Search sleeper buses near you"
-              action="Search Now"
-              delay={0.2}
-            />
+            <Link to="/search">
+              <DashCard
+                icon={<MapPin className="w-6 h-6" />}
+                title="Find Buses"
+                desc="Search sleeper buses near you"
+                action="Search Now"
+                delay={0.2}
+              />
+            </Link>
             <DashCard
               icon={<Calendar className="w-6 h-6" />}
               title="My Bookings"
