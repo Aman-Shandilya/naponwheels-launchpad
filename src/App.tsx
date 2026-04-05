@@ -12,6 +12,14 @@ import Auth from "./pages/Auth";
 import AuthCallback from "./pages/AuthCallback";
 import Dashboard from "./pages/Dashboard";
 import ResetPassword from "./pages/ResetPassword";
+import SearchBuses from "./pages/SearchBuses";
+import OwnerLayout from "./pages/owner/OwnerLayout";
+import OwnerOverview from "./pages/owner/OwnerOverview";
+import RegisterBus from "./pages/owner/RegisterBus";
+import MyBuses from "./pages/owner/MyBuses";
+import BookingManagement from "./pages/owner/BookingManagement";
+import Earnings from "./pages/owner/Earnings";
+import AvailabilityManager from "./pages/owner/AvailabilityManager";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +40,16 @@ const App = () => (
                 <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/search" element={<SearchBuses />} />
+                {/* Owner routes */}
+                <Route path="/owner" element={<OwnerLayout />}>
+                  <Route index element={<OwnerOverview />} />
+                  <Route path="register" element={<RegisterBus />} />
+                  <Route path="buses" element={<MyBuses />} />
+                  <Route path="bookings" element={<BookingManagement />} />
+                  <Route path="earnings" element={<Earnings />} />
+                  <Route path="availability" element={<AvailabilityManager />} />
+                </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

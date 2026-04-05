@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Moon, Sun, User, LogOut } from 'lucide-react';
+import { Menu, X, Moon, Sun, User, LogOut, Bus } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLeadModal } from '@/contexts/LeadModalContext';
 import { useAuth } from '@/hooks/useAuth';
@@ -115,6 +115,14 @@ const Header = () => {
                   >
                     <User className="w-4 h-4" />
                     Dashboard
+                  </Link>
+                  <Link
+                    to="/search"
+                    onClick={() => setProfileOpen(false)}
+                    className="w-full flex items-center gap-2 px-2 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                  >
+                    <Bus className="w-4 h-4" />
+                    Find Buses
                   </Link>
                   <button
                     onClick={() => { signOut(); setProfileOpen(false); }}

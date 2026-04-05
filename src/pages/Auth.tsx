@@ -48,8 +48,19 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) {
-      const returnTo = (location.state as { returnTo?: string })?.returnTo || '/dashboard';
-      navigate(returnTo);
+      const returnTo = (location.state as { returnTo?: string })?.returnTo;
+      if (returnTo) {
+        navigate(returnTo);
+      } else {
+        // Check profile role and redirect accordingly
+        supabase.from('profiles').select('role').eq('user_id', user.id).single().then(({ data }) => {
+          if (data?.role === 'bus_owner') {
+            navigate('/owner');
+          } else {
+            navigate('/dashboard');
+          }
+        });
+      }
     }
   }, [user, navigate, location.state]);
 
