@@ -138,7 +138,7 @@ const Header = () => {
             <>
               <Link
                 to="/auth"
-                className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground border border-border rounded-xl hover:bg-muted transition-all"
+                className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all ${scrolled ? 'text-muted-foreground hover:text-foreground border border-border hover:bg-muted' : 'text-white/90 hover:text-white border border-white/30 hover:bg-white/10'}`}
               >
                 Sign In
               </Link>
