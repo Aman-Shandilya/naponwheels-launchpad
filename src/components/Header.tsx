@@ -169,7 +169,7 @@ const Header = () => {
             {mounted && (theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />)}
             {!mounted && <div className="w-4 h-4" />}
           </button>
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2" aria-label="Toggle menu">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className={`p-2 ${scrolled ? '' : 'text-white'}`} aria-label="Toggle menu">
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
