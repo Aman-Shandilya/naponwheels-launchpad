@@ -116,13 +116,13 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                +91 6299378775
+                +91 6205571095
               </div>
             </div>
 
             <div className="flex gap-3 mt-4">
               <a
-                href="https://www.linkedin.com/in/md-arshad-936353368"
+                href="https://www.linkedin.com/in/aman-kumar-b25564379"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-xl bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -146,6 +146,9 @@ const Footer = () => {
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} NapOnWheels. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Founded & built by Aman Kumar
           </p>
           <p className="text-xs text-muted-foreground">
             Made with 💙 for travelers who deserve better rest.
