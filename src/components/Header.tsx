@@ -67,7 +67,7 @@ const Header = () => {
                   e.preventDefault();
                   handleNavClick(l.href);
                 }}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm font-medium transition-colors ${scrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/80 hover:text-white'}`}
               >
                 {l.label}
               </a>
