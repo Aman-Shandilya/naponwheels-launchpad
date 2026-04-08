@@ -52,7 +52,7 @@ const Header = () => {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-18">
-        <Link to="/" className="font-heading font-extrabold text-xl tracking-tight text-foreground">
+        <Link to="/" className={`font-heading font-extrabold text-xl tracking-tight ${scrolled ? 'text-foreground' : 'text-white'}`}>
           Nap<span className="text-accent">On</span>Wheels
         </Link>
 
