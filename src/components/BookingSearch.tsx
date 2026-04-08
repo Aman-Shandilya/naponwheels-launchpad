@@ -88,7 +88,6 @@ const BookingSearch = () => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
-        // Find nearest hub (simple distance calc)
         const hubs: Record<string, [number, number]> = {
           "Kashmere Gate ISBT": [28.6674, 77.2284],
           "Anand Vihar ISBT": [28.6469, 77.3156],
@@ -129,145 +128,150 @@ const BookingSearch = () => {
 
   const today = new Date().toISOString().split('T')[0];
 
+  const inputBase =
+    "w-full bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/50 rounded-xl py-2.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-orange-500/30 focus:border-orange-400 transition-all outline-none shadow-sm";
+
   return (
     <div className="w-full max-w-6xl mx-auto">
-      <div className="bg-[#E5E7EB]/95 dark:bg-slate-900/90 backdrop-blur-md p-3 lg:p-4 rounded-[2.5rem] shadow-2xl border border-white/40 dark:border-slate-800 flex flex-col lg:flex-row items-stretch lg:items-center gap-2 lg:gap-3 transition-colors duration-300">
-        {/* Location Field */}
-        <div className="flex-[1.2] flex flex-col gap-1 px-2 py-1" ref={locationRef}>
-          <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">
-            LOCATION / HUB
-          </label>
-          <div className="relative group">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center">
-              <MapPin className="w-4 h-4 text-orange-500" />
+      <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-4 lg:p-5 rounded-2xl lg:rounded-full shadow-2xl shadow-black/10 border border-slate-200/60 dark:border-slate-700/50 transition-colors duration-300">
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-end gap-3 lg:gap-2">
+          {/* Location Field */}
+          <div className="flex-[1.3] flex flex-col gap-1.5" ref={locationRef}>
+            <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.12em] ml-3">
+              Location / Hub
+            </label>
+            <div className="relative">
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500" />
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => { setLocation(e.target.value); setShowLocations(true); }}
+                onFocus={() => setShowLocations(true)}
+                placeholder="Search Delhi hubs..."
+                className={`${inputBase} pl-9 pr-9`}
+              />
+              <button
+                onClick={detectLocation}
+                disabled={detectingLocation}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded-lg text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-colors"
+                title="Detect my location"
+              >
+                <LocateFixed className={`w-3.5 h-3.5 ${detectingLocation ? 'animate-spin' : ''}`} />
+              </button>
+              {showLocations && (
+                <div className="absolute z-50 top-full left-0 right-0 mt-1.5 bg-white dark:bg-slate-800 rounded-xl shadow-2xl shadow-black/15 border border-slate-200 dark:border-slate-700 max-h-52 overflow-y-auto">
+                  {filteredLocations.length > 0 ? filteredLocations.map((loc) => (
+                    <button
+                      key={loc}
+                      onClick={() => { setLocation(loc); setShowLocations(false); }}
+                      className="w-full text-left px-3.5 py-2.5 text-[13px] font-medium text-slate-600 dark:text-slate-300 hover:bg-orange-50 dark:hover:bg-slate-700/70 flex items-center gap-2.5 transition-colors first:rounded-t-xl last:rounded-b-xl"
+                    >
+                      <MapPin className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                      {loc}
+                    </button>
+                  )) : (
+                    <div className="px-4 py-3 text-sm text-slate-400">No hubs found</div>
+                  )}
+                </div>
+              )}
             </div>
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => { setLocation(e.target.value); setShowLocations(true); }}
-              onFocus={() => setShowLocations(true)}
-              placeholder="Search Delhi hubs..."
-              className="w-full bg-white dark:bg-slate-800 border-none rounded-2xl py-3 pl-11 pr-10 text-sm font-semibold text-slate-600 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-orange-500/20 transition-all outline-none shadow-sm"
-            />
-            <button
-              onClick={detectLocation}
-              disabled={detectingLocation}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-orange-500 hover:text-orange-600 transition-colors"
-              title="Detect my location"
-            >
-              <LocateFixed className={`w-4 h-4 ${detectingLocation ? 'animate-spin' : ''}`} />
-            </button>
-            {showLocations && (
-              <div className="absolute z-50 top-full left-0 right-0 mt-1 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 max-h-52 overflow-y-auto">
-                {filteredLocations.length > 0 ? filteredLocations.map((loc) => (
-                  <button
-                    key={loc}
-                    onClick={() => { setLocation(loc); setShowLocations(false); }}
-                    className="w-full text-left px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-orange-50 dark:hover:bg-slate-700 flex items-center gap-2 transition-colors"
-                  >
-                    <MapPin className="w-3.5 h-3.5 text-orange-400 shrink-0" />
-                    {loc}
-                  </button>
-                )) : (
-                  <div className="px-4 py-3 text-sm text-slate-400">No hubs found</div>
-                )}
-              </div>
-            )}
           </div>
-        </div>
 
-        {/* Check-in Field */}
-        <div className="flex-1 flex flex-col gap-1 px-2 py-1">
-          <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">
-            CHECK-IN
-          </label>
-          <div className="flex gap-1.5">
-            <div className="relative group flex-1">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
-                <Calendar className="w-4 h-4 text-orange-500" />
-              </div>
+          {/* Divider */}
+          <div className="hidden lg:block w-px h-10 bg-slate-200 dark:bg-slate-700 self-center" />
+
+          {/* Check-in Date */}
+          <div className="flex-1 flex flex-col gap-1.5">
+            <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.12em] ml-3">
+              Check-in Date
+            </label>
+            <div className="relative">
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 pointer-events-none" />
               <input
                 type="date"
                 value={checkInDate}
                 min={today}
                 onChange={(e) => setCheckInDate(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800 border-none rounded-2xl py-3 pl-11 pr-3 text-sm font-semibold text-slate-600 dark:text-slate-200 focus:ring-2 focus:ring-orange-500/20 transition-all outline-none shadow-sm cursor-pointer"
+                className={`${inputBase} pl-9 pr-3 cursor-pointer`}
               />
             </div>
-            <div className="relative group flex-1">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
-                <Clock className="w-4 h-4 text-orange-500" />
-              </div>
+          </div>
+
+          {/* Check-in Time */}
+          <div className="flex-[0.8] flex flex-col gap-1.5">
+            <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.12em] ml-3">
+              Time
+            </label>
+            <div className="relative">
+              <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 pointer-events-none" />
               <select
                 value={checkInTime}
                 onChange={(e) => setCheckInTime(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800 border-none rounded-2xl py-3 pl-9 pr-6 text-sm font-semibold text-slate-600 dark:text-slate-200 focus:ring-2 focus:ring-orange-500/20 transition-all outline-none appearance-none cursor-pointer shadow-sm"
+                className={`${inputBase} pl-9 pr-7 appearance-none cursor-pointer`}
               >
                 {TIME_SLOTS.map((t) => <option key={t}>{t}</option>)}
               </select>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                <div className="w-1.5 h-1.5 border-r-2 border-b-2 border-slate-400 dark:border-slate-500 rotate-45" />
+              <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+                <div className="w-1.5 h-1.5 border-r-[1.5px] border-b-[1.5px] border-slate-400 rotate-45" />
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Duration Field */}
-        <div className="flex-1 flex flex-col gap-1 px-2 py-1">
-          <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">
-            DURATION
-          </label>
-          <div className="relative group">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
-              <Clock className="w-4 h-4 text-orange-500" />
+          {/* Divider */}
+          <div className="hidden lg:block w-px h-10 bg-slate-200 dark:bg-slate-700 self-center" />
+
+          {/* Duration */}
+          <div className="flex-[0.9] flex flex-col gap-1.5">
+            <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.12em] ml-3">
+              Duration
+            </label>
+            <div className="relative">
+              <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 pointer-events-none" />
+              <select
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
+                className={`${inputBase} pl-9 pr-7 appearance-none cursor-pointer`}
+              >
+                {DURATION_OPTIONS.map((d) => <option key={d}>{d}</option>)}
+              </select>
+              <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+                <div className="w-1.5 h-1.5 border-r-[1.5px] border-b-[1.5px] border-slate-400 rotate-45" />
+              </div>
             </div>
-            <select
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
-              className="w-full bg-white dark:bg-slate-800 border-none rounded-2xl py-3 pl-11 pr-8 text-sm font-semibold text-slate-600 dark:text-slate-200 focus:ring-2 focus:ring-orange-500/20 transition-all outline-none appearance-none cursor-pointer shadow-sm"
+          </div>
+
+          {/* Divider */}
+          <div className="hidden lg:block w-px h-10 bg-slate-200 dark:bg-slate-700 self-center" />
+
+          {/* Guests */}
+          <div className="flex-[0.7] flex flex-col gap-1.5">
+            <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.12em] ml-3">
+              Guests
+            </label>
+            <div className="relative">
+              <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 pointer-events-none" />
+              <input
+                type="number"
+                min={1}
+                max={20}
+                value={guests}
+                onChange={(e) => setGuests(e.target.value)}
+                placeholder="1"
+                className={`${inputBase} pl-9 pr-3 [&::-webkit-inner-spin-button]:opacity-100`}
+              />
+            </div>
+          </div>
+
+          {/* Search Button */}
+          <div className="lg:ml-1">
+            <Button 
+              onClick={handleSearch}
+              className="w-full lg:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-2.5 h-[42px] rounded-xl shadow-lg shadow-orange-500/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-orange-500/40"
             >
-              {DURATION_OPTIONS.map((d) => <option key={d}>{d}</option>)}
-            </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-              <div className="w-1.5 h-1.5 border-r-2 border-b-2 border-slate-400 dark:border-slate-500 rotate-45" />
-            </div>
+              <Search className="w-4 h-4 stroke-[3px]" />
+              <span className="uppercase tracking-wide text-sm whitespace-nowrap">Find a Pod</span>
+            </Button>
           </div>
-        </div>
-
-        {/* Guests Field */}
-        <div className="flex-1 flex flex-col gap-1 px-2 py-1">
-          <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">
-            GUESTS (BERTHS)
-          </label>
-          <div className="relative group">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
-              <Users className="w-4 h-4 text-orange-500" />
-            </div>
-            <input
-              type="number"
-              min={1}
-              max={20}
-              value={guests}
-              onChange={(e) => setGuests(e.target.value)}
-              placeholder="1"
-              list="guest-options"
-              className="w-full bg-white dark:bg-slate-800 border-none rounded-2xl py-3 pl-11 pr-8 text-sm font-semibold text-slate-600 dark:text-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-orange-500/20 transition-all outline-none shadow-sm"
-            />
-            <datalist id="guest-options">
-              {[1,2,3,4,5,6,8,10].map(n => <option key={n} value={n} />)}
-            </datalist>
-          </div>
-        </div>
-
-        {/* Search Button */}
-        <div className="lg:pl-2 pt-2 lg:pt-0 self-end mb-1">
-          <Button 
-            onClick={handleSearch}
-            className="w-full lg:w-auto bg-orange-500 hover:bg-orange-600 text-white font-black px-8 py-6 rounded-2xl shadow-[0_8px_20px_-6px_rgba(249,115,22,0.6)] flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
-          >
-            <Search className="w-5 h-5 stroke-[3.5px]" />
-            <span className="uppercase tracking-[0.05em] text-base">FIND A POD</span>
-          </Button>
         </div>
       </div>
     </div>
