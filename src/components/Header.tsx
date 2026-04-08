@@ -48,11 +48,11 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled ? 'bg-card/90 backdrop-blur-xl shadow-soft border-b border-border/50' : 'bg-transparent'
+        scrolled ? 'bg-card/90 backdrop-blur-xl shadow-soft border-b border-border/50' : 'bg-black/20 backdrop-blur-sm'
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-18">
-        <Link to="/" className="font-heading font-extrabold text-xl tracking-tight text-foreground">
+        <Link to="/" className={`font-heading font-extrabold text-xl tracking-tight ${scrolled ? 'text-foreground' : 'text-white'}`}>
           Nap<span className="text-accent">On</span>Wheels
         </Link>
 
@@ -67,7 +67,7 @@ const Header = () => {
                   e.preventDefault();
                   handleNavClick(l.href);
                 }}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm font-medium transition-colors ${scrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/80 hover:text-white'}`}
               >
                 {l.label}
               </a>
@@ -75,7 +75,7 @@ const Header = () => {
               <Link
                 key={l.href}
                 to={`/#${l.href}`}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm font-medium transition-colors ${scrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/80 hover:text-white'}`}
               >
                 {l.label}
               </Link>
@@ -83,7 +83,7 @@ const Header = () => {
           ))}
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-2 rounded-lg hover:bg-muted transition-colors"
+            className={`p-2 rounded-lg transition-colors ${scrolled ? 'hover:bg-muted text-foreground' : 'hover:bg-white/10 text-white'}`}
             aria-label="Toggle dark mode"
           >
             {mounted && (theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />)}
@@ -138,7 +138,7 @@ const Header = () => {
             <>
               <Link
                 to="/auth"
-                className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground border border-border rounded-xl hover:bg-muted transition-all"
+                className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all ${scrolled ? 'text-muted-foreground hover:text-foreground border border-border hover:bg-muted' : 'text-white/90 hover:text-white border border-white/30 hover:bg-white/10'}`}
               >
                 Sign In
               </Link>
@@ -163,13 +163,13 @@ const Header = () => {
         <div className="md:hidden flex items-center gap-2">
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-2 rounded-lg hover:bg-muted transition-colors"
+            className={`p-2 rounded-lg transition-colors ${scrolled ? 'hover:bg-muted text-foreground' : 'hover:bg-white/10 text-white'}`}
             aria-label="Toggle dark mode"
           >
             {mounted && (theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />)}
             {!mounted && <div className="w-4 h-4" />}
           </button>
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2" aria-label="Toggle menu">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className={`p-2 ${scrolled ? '' : 'text-white'}`} aria-label="Toggle menu">
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
