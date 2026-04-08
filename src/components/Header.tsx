@@ -75,7 +75,7 @@ const Header = () => {
               <Link
                 key={l.href}
                 to={`/#${l.href}`}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className={`text-sm font-medium transition-colors ${scrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/80 hover:text-white'}`}
               >
                 {l.label}
               </Link>
