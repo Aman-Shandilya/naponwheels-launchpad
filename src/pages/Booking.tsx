@@ -97,12 +97,6 @@ const Booking = () => {
   // Scroll to top and validate steps when step changes
    useEffect(() => {
      window.scrollTo(0, 0);
-     
-     // Validate authentication for steps beyond hub browsing
-     if (step > 1 && !user) {
-       setStep(1, true);
-       return;
-     }
 
      // Validate current step requirements
      if (step > 1 && !selectedHub) {
@@ -110,16 +104,9 @@ const Booking = () => {
      } else if (step > 2 && selectedPods.length === 0) {
        setStep(2, true);
      }
-   }, [step, selectedHub, selectedPods.length, user]);
+   }, [step, selectedHub, selectedPods.length]);
 
   const handleSelectHub = (hub: typeof MOCK_HUBS[0]) => {
-    if (!user) {
-      toast.info('Please sign in to continue booking', {
-        description: 'You need to be logged in to reserve a pod.'
-      });
-      navigate('/auth', { state: { returnTo: location.pathname + location.search } });
-      return;
-    }
     setSelectedHub(hub);
     setStep(2);
   };
