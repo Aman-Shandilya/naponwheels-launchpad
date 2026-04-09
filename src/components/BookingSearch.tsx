@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MapPin, Calendar, Clock, Search, LocateFixed } from 'lucide-react';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/components/ui/sonner';
 
 const DELHI_LOCATIONS = [
@@ -54,7 +53,7 @@ const DURATION_OPTIONS = [
 
 const BookingSearch = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  
 
   const [location, setLocation] = useState('');
   const [showLocations, setShowLocations] = useState(false);
@@ -116,13 +115,6 @@ const BookingSearch = () => {
   };
 
   const handleSearch = () => {
-    if (!user) {
-      toast.info('Please sign in to continue', {
-        description: 'You need to be logged in to search and book pods.'
-      });
-      navigate('/auth', { state: { returnTo: '/booking' } });
-      return;
-    }
     navigate('/booking');
   };
 
