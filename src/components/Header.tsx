@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Moon, Sun, User, LogOut, Bus } from 'lucide-react';
+import { Menu, X, Moon, Sun, User, LogOut, Bus, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLeadModal } from '@/contexts/LeadModalContext';
 import { useAuth } from '@/hooks/useAuth';
@@ -135,28 +135,32 @@ const Header = () => {
               )}
             </div>
           ) : (
-            <>
+            <div className="flex items-center gap-2">
               <Link
                 to="/auth"
-                className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all ${scrolled ? 'text-muted-foreground hover:text-foreground border border-border hover:bg-muted' : 'text-white/90 hover:text-white border border-white/30 hover:bg-white/10'}`}
+                className={`group relative px-5 py-2 text-sm font-semibold rounded-full transition-all duration-300 overflow-hidden ${
+                  scrolled
+                    ? 'text-foreground hover:text-primary border border-border/80 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)]'
+                    : 'text-white hover:text-white border border-white/30 hover:border-white/60 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]'
+                }`}
               >
-                Sign In
+                <span className="relative z-10">Sign In</span>
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                  scrolled ? 'bg-primary/5' : 'bg-white/10'
+                }`} />
               </Link>
               <Link
                 to="/auth"
-                className="px-4 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all"
+                className="group relative px-5 py-2 text-sm font-bold text-primary-foreground rounded-full bg-gradient-to-r from-primary to-accent overflow-hidden transition-all duration-300 hover:shadow-[0_4px_24px_hsl(var(--primary)/0.4)] hover:scale-[1.03] active:scale-[0.97]"
               >
-                Sign Up
+                <span className="relative z-10 flex items-center gap-1.5">
+                  Sign Up
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </Link>
-            </>
+            </div>
           )}
-
-          <button
-            onClick={() => openModal()}
-            className="px-5 py-2.5 bg-accent text-accent-foreground text-sm font-bold rounded-xl hover:bg-accent/90 transition-all shadow-accent-glow"
-          >
-            Book Now
-          </button>
         </div>
 
         {/* Mobile menu toggle */}
@@ -237,19 +241,13 @@ const Header = () => {
                 <Link
                   to="/auth"
                   onClick={() => setMobileOpen(false)}
-                  className="flex-1 py-3 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/90 transition-all text-center"
+                  className="flex-1 py-3 text-sm font-bold text-primary-foreground bg-gradient-to-r from-primary to-accent rounded-xl transition-all text-center flex items-center justify-center gap-1.5"
                 >
                   Sign Up
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             )}
-
-            <button
-              onClick={() => { openModal(); setMobileOpen(false); }}
-              className="w-full py-3 bg-accent text-accent-foreground font-bold rounded-xl hover:bg-accent/90 transition-all shadow-accent-glow mt-2"
-            >
-              Book Now
-            </button>
           </div>
         </motion.div>
       )}
