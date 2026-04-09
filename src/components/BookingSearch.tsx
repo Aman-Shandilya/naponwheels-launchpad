@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MapPin, Calendar, Clock, Search, LocateFixed } from 'lucide-react';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/components/ui/sonner';
 
 const DELHI_LOCATIONS = [
