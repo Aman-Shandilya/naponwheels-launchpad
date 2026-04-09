@@ -488,7 +488,16 @@ const Booking = () => {
 
                   <Button 
                     disabled={selectedPods.length === 0}
-                    onClick={() => setStep(3)}
+                    onClick={() => {
+                      if (!user) {
+                        toast.info('Please sign in to continue', {
+                          description: 'You need to be logged in to confirm your booking.'
+                        });
+                        navigate('/auth', { state: { returnTo: '/booking?step=2' } });
+                        return;
+                      }
+                      setStep(3);
+                    }}
                     className="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-7 rounded-2xl text-lg shadow-xl shadow-orange-500/20 disabled:opacity-50"
                   >
                     Confirm & Proceed
