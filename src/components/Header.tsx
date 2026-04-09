@@ -51,13 +51,13 @@ const Header = () => {
         scrolled ? 'bg-card/90 backdrop-blur-xl shadow-soft border-b border-border/50' : 'bg-black/20 backdrop-blur-sm'
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-18">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-18">
         <Link to="/" className={`font-heading font-extrabold text-xl tracking-tight ${scrolled ? 'text-foreground' : 'text-white'}`}>
           Nap<span className="text-accent">On</span>Wheels
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-4 xl:gap-6">
           {navLinks.map(l => (
             isHomePage ? (
               <a
@@ -160,7 +160,7 @@ const Header = () => {
         </div>
 
         {/* Mobile menu toggle */}
-        <div className="md:hidden flex items-center gap-2">
+        <div className="lg:hidden flex items-center gap-2">
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className={`p-2 rounded-lg transition-colors ${scrolled ? 'hover:bg-muted text-foreground' : 'hover:bg-white/10 text-white'}`}
@@ -178,7 +178,7 @@ const Header = () => {
       {/* Mobile menu */}
       {mobileOpen && (
         <motion.div
-          className="md:hidden bg-card/95 backdrop-blur-xl border-b border-border"
+          className="lg:hidden bg-card/95 backdrop-blur-xl border-b border-border"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
