@@ -53,7 +53,7 @@ const DURATION_OPTIONS = [
 
 const BookingSearch = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  
 
   const [location, setLocation] = useState('');
   const [showLocations, setShowLocations] = useState(false);
