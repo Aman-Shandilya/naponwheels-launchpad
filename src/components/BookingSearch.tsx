@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MapPin, Calendar, Clock, Users, Search, LocateFixed } from 'lucide-react';
+import { MapPin, Calendar, Clock, Search, LocateFixed } from 'lucide-react';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
@@ -61,7 +61,7 @@ const BookingSearch = () => {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkInTime, setCheckInTime] = useState('10:00 PM');
   const [duration, setDuration] = useState('3 Hours');
-  const [guests, setGuests] = useState('1');
+  
   const [detectingLocation, setDetectingLocation] = useState(false);
   const locationRef = useRef<HTMLDivElement>(null);
 
