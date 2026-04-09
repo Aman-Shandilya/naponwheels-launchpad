@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MapPin, Calendar, Clock, Users, Search, LocateFixed } from 'lucide-react';
+import { MapPin, Calendar, Clock, Search, LocateFixed } from 'lucide-react';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
@@ -61,7 +61,7 @@ const BookingSearch = () => {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkInTime, setCheckInTime] = useState('10:00 PM');
   const [duration, setDuration] = useState('3 Hours');
-  const [guests, setGuests] = useState('1');
+  
   const [detectingLocation, setDetectingLocation] = useState(false);
   const locationRef = useRef<HTMLDivElement>(null);
 
@@ -237,28 +237,6 @@ const BookingSearch = () => {
               <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
                 <div className="w-1.5 h-1.5 border-r-[1.5px] border-b-[1.5px] border-slate-400 rotate-45" />
               </div>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="hidden lg:block w-px h-10 bg-slate-200 dark:bg-slate-700 self-center" />
-
-          {/* Guests */}
-          <div className="flex-[0.7] flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.12em] ml-3">
-              Guests
-            </label>
-            <div className="relative">
-              <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 pointer-events-none" />
-              <input
-                type="number"
-                min={1}
-                max={20}
-                value={guests}
-                onChange={(e) => setGuests(e.target.value)}
-                placeholder="1"
-                className={`${inputBase} pl-9 pr-3 [&::-webkit-inner-spin-button]:opacity-100`}
-              />
             </div>
           </div>
 

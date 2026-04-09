@@ -148,7 +148,7 @@ const Footer = () => {
             © {new Date().getFullYear()} NapOnWheels. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground">
-            Founded & built by Aman Kumar
+            Founded & built by Aman Kumar and MD Arshad
           </p>
           <p className="text-xs text-muted-foreground">
             Made with 💙 for travelers who deserve better rest.
