@@ -116,13 +116,6 @@ const BookingSearch = () => {
   };
 
   const handleSearch = () => {
-    if (!user) {
-      toast.info('Please sign in to continue', {
-        description: 'You need to be logged in to search and book pods.'
-      });
-      navigate('/auth', { state: { returnTo: '/booking' } });
-      return;
-    }
     navigate('/booking');
   };
 
