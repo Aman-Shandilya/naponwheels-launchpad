@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      auth_events: {
+        Row: {
+          created_at: string
+          email: string | null
+          event_type: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          role: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          event_type: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          role?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          event_type?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          role?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           berth_type: string | null
@@ -233,7 +266,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      app_role: "customer" | "bus_owner"
+      app_role: "customer" | "bus_owner" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -361,7 +394,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["customer", "bus_owner"],
+      app_role: ["customer", "bus_owner", "admin"],
     },
   },
 } as const
