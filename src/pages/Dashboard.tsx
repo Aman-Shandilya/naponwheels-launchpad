@@ -130,7 +130,11 @@ const Dashboard = () => {
             Welcome, <span className="gradient-text">{displayName}</span> 👋
           </h1>
           <p className="text-muted-foreground mt-2">
-            {isOwner ? 'Manage your buses and track earnings' : 'Find and book sleeper buses for your next trip'}
+            {isAdmin
+              ? 'Admin view — monitor sign-ups and sign-ins'
+              : isOwner
+              ? 'Manage your buses and track earnings'
+              : 'Find and book sleeper buses for your next trip'}
           </p>
         </motion.div>
 
