@@ -105,6 +105,7 @@ const Dashboard = () => {
 
   const displayName = profile.full_name || user.email?.split('@')[0] || 'User';
   const isOwner = profile.role === 'bus_owner';
+  const isAdmin = profile.role === 'admin';
 
   return (
     <div className="min-h-screen bg-background">
