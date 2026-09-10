@@ -25,7 +25,7 @@ const Dashboard = () => {
     }
   }, [user, authLoading, navigate]);
 
-  // Redirect bus owners to owner dashboard
+  // Redirect bus owners to owner dashboard (admins stay here)
   useEffect(() => {
     if (profile?.role === 'bus_owner') {
       navigate('/owner');
