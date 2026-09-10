@@ -11,6 +11,7 @@ import Booking from "./pages/Booking";
 import Auth from "./pages/Auth";
 import AuthCallback from "./pages/AuthCallback";
 import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 import ResetPassword from "./pages/ResetPassword";
 import SearchBuses from "./pages/SearchBuses";
 import OwnerLayout from "./pages/owner/OwnerLayout";
