@@ -9,13 +9,13 @@ const logAuthEvent = async (
   metadata: { full_name?: string; email?: string; phone?: string; role?: string }
 ) => {
   try {
-    await supabase.from('auth_events').insert({
-      user_id: userId,
-      event_type: eventType,
-      full_name: metadata.full_name || null,
-      email: metadata.email || null,
-      phone: metadata.phone || null,
-      role: metadata.role || null,
+    await (supabase.rpc as any)('log_auth_event', {
+      p_user_id: userId,
+      p_event_type: eventType,
+      p_full_name: metadata.full_name || null,
+      p_email: metadata.email || null,
+      p_phone: metadata.phone || null,
+      p_role: metadata.role || null,
     });
   } catch (err) {
     console.error('Auth event log error:', err);
