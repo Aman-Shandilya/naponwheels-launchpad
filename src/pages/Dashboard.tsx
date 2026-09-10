@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Loader2, Bus, Calendar, DollarSign, PlusCircle, User, MapPin, ArrowLeft, LogOut } from 'lucide-react';
+import { Loader2, Bus, Calendar, DollarSign, PlusCircle, User, MapPin, ArrowLeft, LogOut, Shield } from 'lucide-react';
 import Header from '@/components/Header';
 
 interface Profile {
