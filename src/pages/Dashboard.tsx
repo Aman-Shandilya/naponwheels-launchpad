@@ -160,6 +160,26 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
+        {/* Admin Card */}
+        {isAdmin && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="mb-6"
+          >
+            <Link to="/admin">
+              <DashCard
+                icon={<Shield className="w-6 h-6" />}
+                title="Admin Activity Log"
+                desc="View all sign-ups and sign-ins"
+                action="Open Log"
+                delay={0.15}
+              />
+            </Link>
+          </motion.div>
+        )}
+
         {/* Dashboard Cards */}
         {isOwner ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
