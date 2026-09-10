@@ -37,7 +37,7 @@ const logAuthEvent = async (
       p_email: metadata.email || null,
       p_phone: metadata.phone || null,
       p_role: metadata.role || null,
-    });
+    } as any);
   } catch (err) {
     console.error('Auth event log error:', err);
   }
