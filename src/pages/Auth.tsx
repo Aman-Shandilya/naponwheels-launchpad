@@ -117,7 +117,7 @@ const Auth = () => {
           setLoading(false);
           return;
         }
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -130,6 +130,14 @@ const Auth = () => {
           },
         });
         if (error) throw error;
+        if (data.user) {
+          await logAuthEvent(data.user.id, 'signup', {
+            full_name: fullName.trim(),
+            email,
+            phone: phone ? `${countryCode}${phone.replace(/\s/g, '')}` : '',
+            role,
+          });
+        }
         setMessage('Check your email for a confirmation link to complete sign up!');
         toast({ title: 'Account created!', description: 'Please verify your email to sign in.' });
       } else {
