@@ -9,7 +9,7 @@ import Header from '@/components/Header';
 interface Profile {
   full_name: string;
   phone: string;
-  role: 'customer' | 'bus_owner';
+  role: 'customer' | 'bus_owner' | 'admin';
 }
 
 const Dashboard = () => {
