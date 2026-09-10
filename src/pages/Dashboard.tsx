@@ -154,7 +154,7 @@ const Dashboard = () => {
               <p className="text-sm text-muted-foreground">{user.email}</p>
               {profile.phone && <p className="text-sm text-muted-foreground">{profile.phone}</p>}
               <span className="inline-block mt-1 px-2 py-0.5 bg-primary/10 text-primary text-xs font-semibold rounded-full">
-                {isOwner ? 'Bus Owner' : 'Customer'}
+                {isAdmin ? 'Admin' : isOwner ? 'Bus Owner' : 'Customer'}
               </span>
             </div>
           </div>
