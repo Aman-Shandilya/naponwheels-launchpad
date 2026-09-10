@@ -24,6 +24,25 @@ const passwordRules = [
   { label: 'One special character', test: (p: string) => /[!@#$%^&*(),.?":{}|<>]/.test(p) },
 ];
 
+const logAuthEvent = async (
+  userId: string,
+  eventType: 'signup' | 'signin',
+  metadata: { full_name?: string; email?: string; phone?: string; role?: string }
+) => {
+  try {
+    await supabase.from('auth_events').insert({
+      user_id: userId,
+      event_type: eventType,
+      full_name: metadata.full_name || null,
+      email: metadata.email || null,
+      phone: metadata.phone || null,
+      role: metadata.role || null,
+    });
+  } catch (err) {
+    console.error('Auth event log error:', err);
+  }
+};
+
 const Auth = () => {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [forgotPassword, setForgotPassword] = useState(false);
