@@ -141,8 +141,17 @@ const Auth = () => {
         setMessage('Check your email for a confirmation link to complete sign up!');
         toast({ title: 'Account created!', description: 'Please verify your email to sign in.' });
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        if (data.user) {
+          const meta = data.user.user_metadata || {};
+          await logAuthEvent(data.user.id, 'signin', {
+            full_name: meta.full_name || '',
+            email: data.user.email || email,
+            phone: meta.phone || '',
+            role: meta.role || '',
+          });
+        }
         toast({ title: 'Welcome back!', description: 'You have signed in successfully.' });
         navigate('/dashboard');
       }
