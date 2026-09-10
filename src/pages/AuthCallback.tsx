@@ -32,6 +32,13 @@ const AuthCallback = () => {
         const { data: { session }, error } = await supabase.auth.getSession();
         if (error) throw error;
         if (session) {
+          const meta = session.user.user_metadata || {};
+          await logAuthEvent(session.user.id, 'signin', {
+            full_name: meta.full_name || '',
+            email: session.user.email || '',
+            phone: meta.phone || '',
+            role: meta.role || '',
+          });
           navigate('/dashboard', { replace: true });
         } else {
           navigate('/auth', { replace: true });
