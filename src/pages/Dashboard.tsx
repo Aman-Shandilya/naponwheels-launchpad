@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Loader2, Bus, Calendar, DollarSign, PlusCircle, User, MapPin, ArrowLeft, LogOut } from 'lucide-react';
+import { Loader2, Bus, Calendar, DollarSign, PlusCircle, User, MapPin, ArrowLeft, LogOut, Shield } from 'lucide-react';
 import Header from '@/components/Header';
 
 interface Profile {
   full_name: string;
   phone: string;
-  role: 'customer' | 'bus_owner';
+  role: 'customer' | 'bus_owner' | 'admin';
 }
 
 const Dashboard = () => {
@@ -25,7 +25,7 @@ const Dashboard = () => {
     }
   }, [user, authLoading, navigate]);
 
-  // Redirect bus owners to owner dashboard
+  // Redirect bus owners to owner dashboard (admins stay here)
   useEffect(() => {
     if (profile?.role === 'bus_owner') {
       navigate('/owner');
@@ -105,6 +105,7 @@ const Dashboard = () => {
 
   const displayName = profile.full_name || user.email?.split('@')[0] || 'User';
   const isOwner = profile.role === 'bus_owner';
+  const isAdmin = profile.role === 'admin';
 
   return (
     <div className="min-h-screen bg-background">
@@ -129,7 +130,11 @@ const Dashboard = () => {
             Welcome, <span className="gradient-text">{displayName}</span> 👋
           </h1>
           <p className="text-muted-foreground mt-2">
-            {isOwner ? 'Manage your buses and track earnings' : 'Find and book sleeper buses for your next trip'}
+            {isAdmin
+              ? 'Admin view — monitor sign-ups and sign-ins'
+              : isOwner
+              ? 'Manage your buses and track earnings'
+              : 'Find and book sleeper buses for your next trip'}
           </p>
         </motion.div>
 
@@ -149,11 +154,31 @@ const Dashboard = () => {
               <p className="text-sm text-muted-foreground">{user.email}</p>
               {profile.phone && <p className="text-sm text-muted-foreground">{profile.phone}</p>}
               <span className="inline-block mt-1 px-2 py-0.5 bg-primary/10 text-primary text-xs font-semibold rounded-full">
-                {isOwner ? 'Bus Owner' : 'Customer'}
+                {isAdmin ? 'Admin' : isOwner ? 'Bus Owner' : 'Customer'}
               </span>
             </div>
           </div>
         </motion.div>
+
+        {/* Admin Card */}
+        {isAdmin && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="mb-6"
+          >
+            <Link to="/admin">
+              <DashCard
+                icon={<Shield className="w-6 h-6" />}
+                title="Admin Activity Log"
+                desc="View all sign-ups and sign-ins"
+                action="Open Log"
+                delay={0.15}
+              />
+            </Link>
+          </motion.div>
+        )}
 
         {/* Dashboard Cards */}
         {isOwner ? (

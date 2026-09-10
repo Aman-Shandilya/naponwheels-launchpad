@@ -24,6 +24,25 @@ const passwordRules = [
   { label: 'One special character', test: (p: string) => /[!@#$%^&*(),.?":{}|<>]/.test(p) },
 ];
 
+const logAuthEvent = async (
+  userId: string,
+  eventType: 'signup' | 'signin',
+  metadata: { full_name?: string; email?: string; phone?: string; role?: string }
+) => {
+  try {
+    await supabase.from('auth_events').insert({
+      user_id: userId,
+      event_type: eventType,
+      full_name: metadata.full_name || null,
+      email: metadata.email || null,
+      phone: metadata.phone || null,
+      role: metadata.role || null,
+    });
+  } catch (err) {
+    console.error('Auth event log error:', err);
+  }
+};
+
 const Auth = () => {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [forgotPassword, setForgotPassword] = useState(false);
@@ -98,7 +117,7 @@ const Auth = () => {
           setLoading(false);
           return;
         }
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -111,11 +130,28 @@ const Auth = () => {
           },
         });
         if (error) throw error;
+        if (data.user) {
+          await logAuthEvent(data.user.id, 'signup', {
+            full_name: fullName.trim(),
+            email,
+            phone: phone ? `${countryCode}${phone.replace(/\s/g, '')}` : '',
+            role,
+          });
+        }
         setMessage('Check your email for a confirmation link to complete sign up!');
         toast({ title: 'Account created!', description: 'Please verify your email to sign in.' });
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        if (data.user) {
+          const meta = data.user.user_metadata || {};
+          await logAuthEvent(data.user.id, 'signin', {
+            full_name: meta.full_name || '',
+            email: data.user.email || email,
+            phone: meta.phone || '',
+            role: meta.role || '',
+          });
+        }
         toast({ title: 'Welcome back!', description: 'You have signed in successfully.' });
         navigate('/dashboard');
       }

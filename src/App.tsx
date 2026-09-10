@@ -11,6 +11,7 @@ import Booking from "./pages/Booking";
 import Auth from "./pages/Auth";
 import AuthCallback from "./pages/AuthCallback";
 import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 import ResetPassword from "./pages/ResetPassword";
 import SearchBuses from "./pages/SearchBuses";
 import OwnerLayout from "./pages/owner/OwnerLayout";
@@ -39,6 +40,7 @@ const App = () => (
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/admin" element={<Admin />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/search" element={<SearchBuses />} />
                 {/* Owner routes */}
