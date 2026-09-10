@@ -3,6 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 
+const logAuthEvent = async (
+  userId: string,
+  eventType: 'signup' | 'signin',
+  metadata: { full_name?: string; email?: string; phone?: string; role?: string }
+) => {
+  try {
+    await supabase.from('auth_events').insert({
+      user_id: userId,
+      event_type: eventType,
+      full_name: metadata.full_name || null,
+      email: metadata.email || null,
+      phone: metadata.phone || null,
+      role: metadata.role || null,
+    });
+  } catch (err) {
+    console.error('Auth event log error:', err);
+  }
+};
+
 const AuthCallback = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
